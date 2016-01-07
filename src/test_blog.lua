@@ -1,5 +1,5 @@
 require 'src/blog'
-local Data = require 'src/data_mock'
+require 'src/data_mock'
 
 describe('Blog entry operations', function()
 	it('should create a entry', function()

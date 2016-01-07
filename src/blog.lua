@@ -12,5 +12,6 @@ function Entry:new(slug, title, date, tags, contentDest)
 end
 
 function Entry:readContent()
+	return Data.readContent(self)
 end
 

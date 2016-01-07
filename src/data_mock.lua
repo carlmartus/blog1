@@ -1,6 +1,6 @@
 require 'src/blog'
 
-local Data = {}
+Data = {}
 
 function Data.readContent(entry)
 	return entry.contentDest
