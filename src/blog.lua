@@ -1,7 +1,7 @@
 Entry = {}
 
 function Entry:new(slug, title, date, tags, contentDest)
-	self._index = self
+	self.__index = self
 	return setmetatable({
 		slug = assert(slug),
 		title = assert(title),
