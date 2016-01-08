@@ -1,5 +1,6 @@
 require 'src/blog'
 require 'src/data_mock'
+local inspect = require 'inspect'
 
 describe('Blog entry operations', function()
 	it('should create a entry', function()
@@ -27,6 +28,11 @@ describe('Blog entry operations', function()
 			assert(#entries[i].tags > 1)
 			assert(entries[i].tags[1] == 'custom' .. i)
 		end
+	end)
+
+	it('should read mock content', function()
+		local entries = Data.scanEntries('.')
+		assert(entries[1]:readContent() == entries[1].contentDest)
 	end)
 end)
 
