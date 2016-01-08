@@ -1,9 +1,11 @@
 local turbo = require 'turbo'
 local Data = require 'src/data_fs'
-local inspect = require 'inspect'
+local io = require 'io'
 
+PATH_CONTENT = 'content'
 
 local allEntries
+local templates = { partials={} }
 
 --==============================================================================
 -- Utility
@@ -25,6 +27,18 @@ local function writeHeader(req, code, contentType, contentLength)
 	req:write("\r\n")
 end
 
+local function createTemplate(fileName)
+	local fd = io.open('templates/'..fileName..'.mustache', 'rb')
+	local content = fd:read('*a')
+	fd:close()
+
+	return turbo.web.Mustache.compile(content)
+end
+
+local function renderTemplate(template, data, partials)
+	return turbo.web.Mustache.render(template, data, partials)
+end
+
 
 --==============================================================================
 -- Requests
@@ -33,7 +47,9 @@ end
 -- Root
 local RequestRoot = class('RequestRoot', turbo.web.RequestHandler)
 function RequestRoot:get()
-	self:write('Test')
+	self:write(renderTemplate(templates.front, {
+		title='Front',
+	}, templates))
 end
 
 -- Article
@@ -56,6 +72,12 @@ end
 --==============================================================================
 
 local function main()
+	allEntries = Data.scanEntries(PATH_CONTENT)
+
+	templates.front = createTemplate('front')
+	templates.head = createTemplate('head')
+	templates.foot = createTemplate('foot')
+
 	local app = turbo.web.Application({
 		{ '^/$', RequestRoot },
 		{ '^/articles/(.+)$', RequestArticle },
