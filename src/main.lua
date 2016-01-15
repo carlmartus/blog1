@@ -1,5 +1,5 @@
 local turbo = require 'turbo'
-local Data = require 'src/data_fs'
+Data = require 'src/data_fs'
 local io = require 'io'
 
 PATH_CONTENT = 'content'
@@ -13,22 +13,6 @@ local mustachePages = {
 --==============================================================================
 -- Utility
 --==============================================================================
-
-local function writeHeader(req, code, contentType, contentLength)
-    req:write("HTTP/1.1 "..code.."\r\n")
-
-	if contentType then
-		print('Sending content type')
-		req:write("Content-Type: "..contentType.."\r\n")
-	end
-
-	if contentLength then
-		print('Sending content length')
-		req:write("Content-Length: "..contentLength.."\r\n")
-	end
-
-	req:write("\r\n")
-end
 
 local function createTemplate(fileName)
 	local fd = io.open('templ/'..fileName..'.mustache', 'rb')
@@ -50,7 +34,17 @@ end
 -- Root
 local RequestFront = class('RequestFront', turbo.web.RequestHandler)
 function RequestFront:get()
+	local displayArticles = {}
+	for i = 1, math.min(5, #allEntries) do
+		if not allEntries[i].contentData then
+			allEntries[i].contentData = allEntries[i]:readContent()
+		end
+
+		table.insert(displayArticles, allEntries[i])
+	end
+
 	self:write(renderTemplate(templates.front, {
+		articles=displayArticles,
 	}, templates))
 end
 
@@ -70,8 +64,10 @@ function RequestArticle:get(slug)
 	end
 end
 
+--=============================================================================
 -- 404
---[[
+--=============================================================================
+
 local Request404 = class('Request404', turbo.web.RequestHandler)
 function Request404:get(path)
 	self:set_status(404)
@@ -81,7 +77,6 @@ function Request404:get(path)
 		path=path,
 	}, templates))
 end
-]]--
 
 
 --==============================================================================

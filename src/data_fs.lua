@@ -5,15 +5,20 @@ local inspect = require 'inspect'
 
 local Data = {}
 
+function readFileRaw(path)
+	local fd = io.open(path)
+	local raw = fd:read('*a')
+	fd:close()
+
+	return raw
+end
+
 function Data.readContent(entry)
-	return entry.contentDest
+	return readFileRaw(entry.contentDest)
 end
 
 local function makeEntryFromDirectory(path, date)
-	local raw = ''
-	for line in io.lines(path..'/meta.json') do
-		raw = raw .. line
-	end
+	local raw = readFileRaw(path..'/meta.json', 'r')
 
 	local json = cjson.decode(raw)
 
@@ -21,7 +26,7 @@ local function makeEntryFromDirectory(path, date)
 	if not json.shortTitle then return end
 	if not json.tags then return end
 
-	local slug = string.gsub(json.shortTitle, ' ', '-')
+	local slug = string.lower(string.gsub(json.shortTitle, ' ', '-'))
 
 	return Entry:new(slug, json.longTitle, date, json.tags, path..'/content.md')
 end
@@ -52,7 +57,7 @@ function Data.scanEntries(dest)
 	end
 
 	table.sort(list, function(a, b)
-		return a.date < b.date
+		return a.date > b.date
 	end)
 
 	return list
