@@ -2,16 +2,17 @@
 To be used on [martus.se](http://www.martus.se).
 
 ## Requirements
- * LuaJIT
- * TurboLua
- * cjson
- * Lua File System
+ * LuaJIT.
+
+Following [Luarocks](https://luarocks.org/) modules:
+ * TurboLua (`turbo`)
+ * cjson (`lua-cjson`)
+ * cmark-lua (`cmark`)
+ * Lua File System (`luafilesystem`)
 
 ### Development
  * Busted (Testing)
 
 ## Todo
  * [ ] Installation instructions
- * [ ] Mock test
- * [ ] Fs read
 

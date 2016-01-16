@@ -2,6 +2,7 @@ require 'src/blog'
 local fs = require 'lfs'
 local cjson = require 'cjson'
 local inspect = require 'inspect'
+local cmark = require 'cmark'
 
 local Data = {}
 
@@ -14,7 +15,11 @@ function readFileRaw(path)
 end
 
 function Data.readContent(entry)
-	return readFileRaw(entry.contentDest)
+	local raw =  readFileRaw(entry.contentDest)
+	local doc = cmark.parse_document(raw, string.len(raw), cmark.OPT_DEFAULT)
+	local html = cmark.render_html(doc, cmark.OPT_DEFAULT)
+
+	return html
 end
 
 local function makeEntryFromDirectory(path, date)

@@ -1,13 +1,14 @@
 local turbo = require 'turbo'
 Data = require 'src/data_fs'
 local io = require 'io'
+--local inspect = require 'inspect'
 
 PATH_CONTENT = 'content'
 
 local allEntries
 local templates = { partials={} }
 local mustachePages = {
-	'front', 'head', 'foot', 'missing',
+	'front', 'head', 'foot', 'missing', 'part_article',
 }
 
 --==============================================================================
@@ -22,6 +23,28 @@ local function createTemplate(fileName)
 	return turbo.web.Mustache.compile(content)
 end
 
+local function readArticleList(arr)
+	fixed = {}
+	for i = 1, #arr do
+		local addTags = {}
+		for j = 1, #arr[i].tags do
+			table.insert(addTags, {
+				name=arr[i].tags[j],
+				slug=string.lower(string.gsub(arr[i].tags[j], ' ', '-')),
+			})
+		end
+
+		table.insert(fixed, {
+			title=arr[i].title,
+			date=arr[i].date,
+			content=arr[i]:readContent(),
+			tags=addTags,
+		})
+	end
+
+	return fixed
+end
+
 local function renderTemplate(template, data, partials)
 	return turbo.web.Mustache.render(template, data, partials)
 end
@@ -34,17 +57,20 @@ end
 -- Root
 local RequestFront = class('RequestFront', turbo.web.RequestHandler)
 function RequestFront:get()
-	local displayArticles = {}
+	local selectedArticles = {}
 	for i = 1, math.min(5, #allEntries) do
+		--[[
 		if not allEntries[i].contentData then
 			allEntries[i].contentData = allEntries[i]:readContent()
 		end
+		]]--
 
-		table.insert(displayArticles, allEntries[i])
+		table.insert(selectedArticles, allEntries[i])
 	end
 
+	local part = readArticleList(selectedArticles)
 	self:write(renderTemplate(templates.front, {
-		articles=displayArticles,
+		articles=part,
 	}, templates))
 end
 
