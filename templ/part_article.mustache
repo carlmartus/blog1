@@ -1,8 +1,17 @@
+{{#link}}
+<h2><a href="/articles/{{slug}}">{{title}}</a> <small>{{date}}</small></h2>
+{{/link}}
+{{^link}}
 <h2>{{title}} <small>{{date}}</small></h2>
+{{/link}}
 
 {{{content}}}
 
 <p>
-{{#tags}}TAG: ({{name}}) {{slug}}{{/tags}}
+{{#tags}}
+<a href="/tags/{{slug}}">
+<span class="label label-default">{{name}}</span>
+</a>
+{{/tags}}
 </p>
 
