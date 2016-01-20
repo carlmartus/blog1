@@ -88,7 +88,8 @@ end
 local RequestFront = class('RequestFront', turbo.web.RequestHandler)
 function RequestFront:get()
 	local selectedArticles = {}
-	for i = 1, math.min(5, #allEntries) do
+	--for i = 1, math.min(5, #allEntries) do
+	for i = 1, #allEntries do
 		table.insert(selectedArticles, allEntries[i])
 	end
 
