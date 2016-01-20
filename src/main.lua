@@ -140,7 +140,7 @@ local function main()
 		{ '^/(.*)$', turbo.web.StaticFileHandler, 'static/' },
 		--{ '^.*$', Request404 },
 	})
-	app:listen(8080)
+	app:listen(8083, '127.0.0.1')
 
 	turbo.ioloop.instance():start()
 end
