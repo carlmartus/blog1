@@ -10,9 +10,9 @@ Following [Luarocks](https://luarocks.org/) modules:
  * cmark-lua (`cmark`)
  * Lua File System (`luafilesystem`)
 
-### Development
- * Busted (Testing)
+To put content in the blog copy the directory `content-sample` to a directory
+in the repository called `content`. This will serve as a skeleton.
 
-## Todo
- * [ ] Installation instructions
+### Development
+ * Busted (Testing, `busted`)
 

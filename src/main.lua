@@ -1,7 +1,7 @@
 local turbo = require 'turbo'
 Data = require 'src/data_fs'
 local io = require 'io'
-local inspect = require 'inspect'
+--local inspect = require 'inspect'
 
 PATH_CONTENT = 'content'
 
@@ -112,10 +112,8 @@ function RequestArticle:get(slug)
 	if entry then
 		local article = readArticle(entry, true)
 		local send = {
-			test='ABC',
 			article={article},
 		}
-		print(inspect(send))
 
 		sendTemplate(self, templates.article, send)
 	else
