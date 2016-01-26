@@ -1,0 +1,57 @@
+{
+	"items": [
+		{
+			"name": "Gast (LD33)",
+			"author": "Martin",
+			"license": "Apache",
+			"links": [["Play in browser", "http://martus.se/ld33/gast/"], ["Source", "https://github.com/carlmartus/ld33_gast"]]
+		}, {
+			"name": "Monks: The age of reason (LD32)",
+			"author": "Martin",
+			"license": "MIT",
+			"links": [["Play in browser", "http://martus.se/ld32/book/"], ["Source", "https://github.com/carlmartus/ld32_book"]]
+		}, {
+			"name": "Sneak assasin (LD31)",
+			"author": "Martin",
+			"license": "MIT",
+			"links": [["Play in browser", "http://martus.se/ld31/sneak/"], ["Source", "https://github.com/carlmartus/ld31_sneak"]]
+		}, {
+			"name": "Tomtejumper (1GAM)",
+			"author": "Martin",
+			"license": "Proprietary",
+			"links": [["Play in browser", "http://martus.se/1gam/carlmartus/tomtejumper/"]]
+		}, {
+			"name": "Firewalker (1GAM)",
+			"author": "Martin",
+			"license": "GPL v3",
+			"links": [["Play in browser", "http://martus.se/1gam/carlmartus/firewalker/"], ["Source", "https://github.com/carlmartus/1gam_fire"]]
+		}, {
+			"name": "Mr. Fisk (LD29)",
+			"author": "Martin",
+			"license": "BSD",
+			"links": [["Ludum dare", "http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=31158"], ["Play in browser", "http://martus.se/ld29/mrfisk/"]]
+		}, {
+			"name": "Surface Invaders (LD29)",
+			"author": "Jörgen",
+			"license": "Proprietary",
+			"links": [["Ludum dare", "http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=34177"], ["Site", "http://martus.se/ld29/surface_invaders/"]]
+		}, {
+			"name": "Uno the mind reader (LD29)",
+			"author": "Daniel",
+			"license": "Proprietary",
+			"links": [["Ludum dare", "http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=15377"]]
+		}, {
+			"name": "Cyborg (/agdg/ June 2013)",
+			"author": "Martin",
+			"license": "Proprietary",
+			"links": [["Win32", "http://martus.se/files/cyborg-win32-1.1.zip"], ["Win32 dev.", "http://martus.se/files/cyborg_win32_dependencies.zip"], ["Source", "https://github.com/carlmartus/cyborg"]]
+		}, {
+			"name": "Thesis: Time of Flight camera in practical application",
+			"author": "Dennis, Martin",
+			"license": "",
+			"links": [["PDF", "/report.pdf"]]
+		}
+
+	]
+}
+

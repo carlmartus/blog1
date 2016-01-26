@@ -1,18 +1,9 @@
 require 'src/blog'
 local fs = require 'lfs'
-local cjson = require 'cjson'
-local inspect = require 'inspect'
 local cmark = require 'cmark'
+--local inspect = require 'inspect'
 
 local Data = {}
-
-function readFileRaw(path)
-	local fd = io.open(path)
-	local raw = fd:read('*a')
-	fd:close()
-
-	return raw
-end
 
 function Data.readContent(entry)
 	local raw =  readFileRaw(entry.contentDest)
@@ -23,9 +14,7 @@ function Data.readContent(entry)
 end
 
 local function makeEntryFromDirectory(path, date)
-	local raw = readFileRaw(path..'/meta.json', 'r')
-
-	local json = cjson.decode(raw)
+	local json = readFileJson(path..'/meta.json')
 
 	if not json.longTitle then return end
 	if not json.shortTitle then return end

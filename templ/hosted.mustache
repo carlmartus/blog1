@@ -1,0 +1,29 @@
+{{> head}}
+
+<h2>Hosted projects</h2>
+
+<table>
+
+{{#items}}
+
+<tr>
+<td>{{name}}</td>
+<td>{{author}}</td>
+
+<td>
+<div class="btn-group" role="group">
+{{#links}}
+
+<a href="{{href}}" type="button" class="btn btn-primary">{{name}}</a>
+
+{{/links}}
+</div>
+</td>
+</tr>
+
+{{/items}}
+
+</table>
+
+{{> foot}}
+

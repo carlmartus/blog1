@@ -1,18 +1,19 @@
+require 'src/util'
 local turbo = require 'turbo'
 Data = require 'src/data_fs'
 local io = require 'io'
---local inspect = require 'inspect'
+--local inspect = require 'inspect' -- DEBUG
 
 PATH_CONTENT = 'content'
 
 local allEntries
 local templates = { partials={} }
 local mustachePages = {
-	'front', 'head', 'foot', 'missing', 'part_article', 'article',
+	'front', 'head', 'foot', 'missing', 'part_article', 'article', 'hosted',
 }
 
 --==============================================================================
--- Utility
+-- Web utility
 --==============================================================================
 
 local function createTemplate(fileName)
@@ -121,6 +122,25 @@ function RequestArticle:get(slug)
 	end
 end
 
+-- Hosted
+local RequestHosted = class('RequestHosted', turbo.web.RequestHandler)
+function RequestHosted:get()
+	local json = readFileJson('hosted.json')
+
+	-- Prepare some fields for mustache
+	for a = 1, #json.items do
+		for b = 1, #json.items[a].links do
+			link = json.items[a].links[b]
+			json.items[a].links[b] = {
+				name = link[1],
+				href = link[2],
+			}
+		end
+	end
+
+	sendTemplate(self, templates.hosted, json)
+end
+
 
 --==============================================================================
 -- Entry point
@@ -136,6 +156,8 @@ local function main()
 	local app = turbo.web.Application({
 		{ '^/$', RequestFront },
 		{ '^/articles/(.+)$', RequestArticle },
+		{ '^/hosted$', RequestHosted },
+		{ '^/projects$', RequestHosted },
 		{ '^/(.*)$', turbo.web.StaticFileHandler, 'static/' },
 		--{ '^.*$', Request404 },
 	})
