@@ -1,6 +1,6 @@
 require 'src/blog'
-require 'src/data_mock'
-local inspect = require 'inspect'
+require 'test/data_mock'
+--local inspect = require 'inspect'
 
 describe('Blog entry operations', function()
 	it('should create a entry', function()
