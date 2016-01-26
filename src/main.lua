@@ -122,6 +122,28 @@ function RequestArticle:get(slug)
 	end
 end
 
+-- Tag
+local RequestTag = class('RequestTag', turbo.web.RequestHandler)
+function RequestTag:get(tag)
+	local selectedArticles = {}
+	for i = 1, #allEntries do
+		local hasTag = false
+		for j = 1, #allEntries[i].tags do
+			if allEntries[i].tags[j] == tag then
+				hasTag = true
+			end
+		end
+
+		if hasTag then
+			table.insert(selectedArticles, allEntries[i])
+		end
+	end
+
+	local part = readArticleList(selectedArticles, true)
+
+	sendTemplate(self, templates.front, { articles=part })
+end
+
 -- Hosted
 local RequestHosted = class('RequestHosted', turbo.web.RequestHandler)
 function RequestHosted:get()
@@ -156,6 +178,7 @@ local function main()
 	local app = turbo.web.Application({
 		{ '^/$', RequestFront },
 		{ '^/articles/(.+)$', RequestArticle },
+		{ '^/tags/(.+)$', RequestTag },
 		{ '^/hosted$', RequestHosted },
 		{ '^/projects$', RequestHosted },
 		{ '^/(.*)$', turbo.web.StaticFileHandler, 'static/' },
