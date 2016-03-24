@@ -113,6 +113,7 @@ function RequestArticle:get(slug)
 	if entry then
 		local article = readArticle(entry, true)
 		local send = {
+			title = article.title,
 			article={article},
 		}
 
