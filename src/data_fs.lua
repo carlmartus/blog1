@@ -6,14 +6,15 @@ local cmark = require 'cmark'
 local Data = {}
 
 function Data.readContent(entry)
-	local raw
+	local html
+
 	if entry.directHTML then
-		raw =  readFileRaw(entry.directHTML)
+		html =  readFileRaw(entry.directHTML)
 	else
-		raw =  readFileRaw(entry.contentDest)
+		local raw =  readFileRaw(entry.contentDest)
+		local doc = cmark.parse_document(raw, string.len(raw), cmark.OPT_DEFAULT)
+		html = cmark.render_html(doc, cmark.OPT_DEFAULT)
 	end
-	local doc = cmark.parse_document(raw, string.len(raw), cmark.OPT_DEFAULT)
-	local html = cmark.render_html(doc, cmark.OPT_DEFAULT)
 
 	return html
 end
