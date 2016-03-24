@@ -1265,23 +1265,23 @@ h6 .small,
 }
 h1,
 .h1 {
-  font-size: 36px;
+  font-size: 26px;
 }
 h2,
 .h2 {
-  font-size: 30px;
+  font-size: 18px;
 }
 h3,
 .h3 {
-  font-size: 24px;
+  font-size: 14px;
 }
 h4,
 .h4 {
-  font-size: 18px;
+  font-size: 12px;
 }
 h5,
 .h5 {
-  font-size: 14px;
+  font-size: 12px;
 }
 h6,
 .h6 {
@@ -6758,3 +6758,9 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.blogpost {
+	padding-left: 80px;
+	width: 600px;
+}
+
