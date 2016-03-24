@@ -6,7 +6,12 @@ local cmark = require 'cmark'
 local Data = {}
 
 function Data.readContent(entry)
-	local raw =  readFileRaw(entry.contentDest)
+	local raw
+	if entry.directHTML then
+		raw =  readFileRaw(entry.directHTML)
+	else
+		raw =  readFileRaw(entry.contentDest)
+	end
 	local doc = cmark.parse_document(raw, string.len(raw), cmark.OPT_DEFAULT)
 	local html = cmark.render_html(doc, cmark.OPT_DEFAULT)
 
@@ -22,7 +27,15 @@ local function makeEntryFromDirectory(path, date)
 
 	local slug = string.lower(string.gsub(json.shortTitle, ' ', '-'))
 
-	return Entry:new(slug, json.longTitle, date, json.tags, path..'/content.md')
+	local entry = Entry:new(slug, json.longTitle, date,
+		json.tags, path..'/content.md')
+
+	local htmlPath = path..'/content.html'
+	if fileExists(htmlPath) then
+		entry.directHTML = htmlPath
+	end
+
+	return entry
 end
 
 local function parseDate(msg)
