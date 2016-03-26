@@ -1,10 +1,5 @@
 {{> head}}
 
-<div class="panel panel-default">
-<div class="panel-heading">
-Hosted projects
-</div>
-
 <table class="table">
 
 <tr>
@@ -15,25 +10,22 @@ Hosted projects
 
 {{#items}}
 
-<tr>
+<tr class="selectable">
 <td>{{name}}</td>
 <td>{{author}}</td>
 
 <td>
-<div class="btn-group" role="group">
 {{#links}}
 
-<a href="{{href}}" type="button" class="btn btn-primary">{{name}}</a>
+<a href="{{href}}" type="button" target="_blank">{{name}}</a>
 
 {{/links}}
-</div>
 </td>
 </tr>
 
 {{/items}}
 
 </table>
-</div>
 
 {{> foot}}
 

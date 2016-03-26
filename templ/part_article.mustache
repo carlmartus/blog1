@@ -1,19 +1,22 @@
-<div class="blogpost">
+<div class="blogpost narrow">
+<div class="blogtop">
 {{#link}}
 <h1><a href="/articles/{{slug}}">{{title}}</a> <small>{{date}}</small></h1>
 {{/link}}
 {{^link}}
 <h2>{{title}} <small>{{date}}</small></h2>
 {{/link}}
+</div>
 
+<div class="blogbody">
 {{{content}}}
 
 <p>
 {{#tags}}
-<a href="/tags/{{slug}}">
-<span class="label label-default">{{name}}</span>
-</a>
+<a class="tag" href="/tags/{{slug}}">#{{name}}</a>
 {{/tags}}
 </p>
+</div>
+
 </div>
 
