@@ -10,6 +10,7 @@ local allEntries
 local templates = { partials={} }
 local mustachePages = {
 	'front', 'head', 'foot', 'missing', 'part_article', 'article', 'hosted',
+	'archive', 'part_preview',
 }
 
 --==============================================================================
@@ -145,6 +146,14 @@ function RequestTag:get(tag)
 	sendTemplate(self, templates.front, { articles=part })
 end
 
+-- Archive
+local RequestArchive = class('RequestArchive', turbo.web.RequestHandler)
+function RequestArchive:get()
+	local data = { title='Archive', articles=allEntries }
+	print(inspect(data))
+	sendTemplate(self, templates.archive, data)
+end
+
 -- Hosted
 local RequestHosted = class('RequestHosted', turbo.web.RequestHandler)
 function RequestHosted:get()
@@ -181,6 +190,7 @@ local function main()
 		{ '^/articles/(.+)$', RequestArticle },
 		{ '^/tags/(.+)$', RequestTag },
 		{ '^/hosted$', RequestHosted },
+		{ '^/archive$', RequestArchive },
 		{ '^/projects$', RequestHosted },
 		{ '^/(.*)$', turbo.web.StaticFileHandler, 'static/' },
 		--{ '^.*$', Request404 },
