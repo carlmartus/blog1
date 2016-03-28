@@ -150,7 +150,6 @@ end
 local RequestArchive = class('RequestArchive', turbo.web.RequestHandler)
 function RequestArchive:get()
 	local data = { title='Archive', articles=allEntries }
-	print(inspect(data))
 	sendTemplate(self, templates.archive, data)
 end
 
